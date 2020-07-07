@@ -9,22 +9,23 @@ window.addEventListener("load", () => {
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
-      long = position.coords.longitude;
-      lat = position.coords.latitude;
+      long = position.coords.lon;
+      lat = position.coords.lat;
       //const proxy = 'http://cors-anywhere.herokuapp.com/' then add `${proxy}  before api link
 
       // nyc lat = 40.6, long = -73.9
 
-      const api = `api.openweathermap.org/data/2.5/weather?lat={lat}&lon={long}&appid=701a9912bafd2cc04c9e21cf6f104f82`;
+      // const api = `api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=701a9912bafd2cc04c9e21cf6f104f82`;
+      const api = `api.openweathermap.org/data/2.5/weather?lat=$40.7&lon=$-73.9&appid=701a9912bafd2cc04c9e21cf6f104f82`;
       fetch(api)
         .then((response) => {
           return response.json();
         })
         .then((data) => {
-          const { temperature, summary, icon } = data.currently;
+          const { temp, description, icon } = data.currently;
           //Set DOM Elements from the API
-          temperatureDegree.textContent = temperature;
-          temperaturDescription.textContent = summary;
+          temperatureDegree.textContent = temp;
+          temperaturDescription.textContent = description;
           locationTimezone.textContent = data.timezone;
           //Set Icon
           setIcons(icon, document.querySelector(".icon"));
